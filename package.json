@@ -12,7 +12,7 @@
     "offline-speech-recognition"
   ],
   "homepage": "https://github.com/ricky0123/vad",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "ISC",
   "main": "dist/index.js",
   "unpkg": "dist/bundle.min.js",
@@ -26,7 +26,8 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
-    "onnxruntime-web": "^1.14.0"
+    "onnxruntime-web": "^1.14.0",
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "build": "./scripts/build.sh",
