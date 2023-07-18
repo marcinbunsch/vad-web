@@ -43,6 +43,9 @@ exports.defaultRealTimeVADOptions = {
     onSpeechEnd: () => {
         _common_1.log.debug("Detected speech end");
     },
+    onSpeechSegment: () => {
+        _common_1.log.debug("Detected speech segment");
+    },
     workletURL: _getWorkletURL(),
     stream: undefined,
 };
@@ -124,6 +127,10 @@ class AudioNodeVAD {
                     // @ts-ignore
                     this.options.onSpeechEnd(audio);
                     break;
+                case _common_1.Message.SpeechSegment:
+                    // @ts-ignore
+                    this.options.onSpeechSegment(audio);
+                    break;
                 default:
                     break;
             }
@@ -144,6 +151,7 @@ class AudioNodeVAD {
                 redemptionFrames: this.options.redemptionFrames,
                 preSpeechPadFrames: this.options.preSpeechPadFrames,
                 minSpeechFrames: this.options.minSpeechFrames,
+                maxSpeechFrames: this.options.maxSpeechFrames,
             });
             vadNode.port.onmessage = async (ev) => {
                 switch (ev.data?.message) {

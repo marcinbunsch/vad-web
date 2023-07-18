@@ -14,6 +14,11 @@ interface RealTimeVADCallbacks {
      * This will not run if the audio segment is smaller than `minSpeechFrames`.
      */
     onSpeechEnd: (audio: Float32Array) => any;
+    /**
+     * Callback to run when speech end is detected, we hit max frames, but there is still speech.
+     * Takes as arg a Float32Array of audio samples between -1 and 1, sample rate 16000.
+     */
+    onSpeechSegment: (audio: Float32Array) => any;
 }
 /**
  * Customizable audio constraints for the VAD.

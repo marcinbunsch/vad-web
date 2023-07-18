@@ -30,6 +30,12 @@ interface RealTimeVADCallbacks {
    * This will not run if the audio segment is smaller than `minSpeechFrames`.
    */
   onSpeechEnd: (audio: Float32Array) => any
+
+  /**
+   * Callback to run when speech end is detected, we hit max frames, but there is still speech.
+   * Takes as arg a Float32Array of audio samples between -1 and 1, sample rate 16000.
+   */
+  onSpeechSegment: (audio: Float32Array) => any
 }
 
 /**
@@ -77,6 +83,9 @@ export const defaultRealTimeVADOptions: RealTimeVADOptions = {
   },
   onSpeechEnd: () => {
     log.debug("Detected speech end")
+  },
+  onSpeechSegment: () => {
+    log.debug("Detected speech segment")
   },
   workletURL: _getWorkletURL(),
   stream: undefined,
@@ -187,6 +196,11 @@ export class AudioNodeVAD {
         this.options.onSpeechEnd(audio)
         break
 
+      case Message.SpeechSegment:
+        // @ts-ignore
+        this.options.onSpeechSegment(audio)
+        break
+
       default:
         break
     }
@@ -213,6 +227,7 @@ export class AudioNodeVAD {
       redemptionFrames: this.options.redemptionFrames,
       preSpeechPadFrames: this.options.preSpeechPadFrames,
       minSpeechFrames: this.options.minSpeechFrames,
+      maxSpeechFrames: this.options.maxSpeechFrames,
     })
 
     vadNode.port.onmessage = async (ev: MessageEvent) => {

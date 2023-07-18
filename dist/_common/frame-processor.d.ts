@@ -28,6 +28,10 @@ export interface FrameProcessorOptions {
      * it will be discarded and `onVADMisfire` will be run instead of `onSpeechEnd`.
      */
     minSpeechFrames: number;
+    /**
+     * Maximum number of frames to process before stopping the VAD.
+     */
+    maxSpeechFrames?: number;
 }
 export declare const defaultFrameProcessorOptions: FrameProcessorOptions;
 export declare function validateOptions(options: FrameProcessorOptions): void;
