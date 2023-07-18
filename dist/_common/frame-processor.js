@@ -113,7 +113,6 @@ class FrameProcessor {
                     return acc + +item.isSpeech;
                 }, 0);
                 const maxSpeechFrames = this.options.maxSpeechFrames;
-                logging_1.log.debug({ speechFrameCount, maxSpeechFrames });
                 if (maxSpeechFrames && speechFrameCount >= maxSpeechFrames) {
                     const audioBuffer = this.audioBuffer;
                     // leave the preSpeechPadFrames at the beginning of the audioBuffer
